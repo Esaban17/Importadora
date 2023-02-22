@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Importadora", "Importadora\Importadora.csproj", "{122283D4-3D74-4EC7-8910-0D64BA9FB173}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportadoraModels", "Models\ImportadoraModels.csproj", "{E70BEDB7-DC62-4ED7-BFD7-8AA6D26070D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{122283D4-3D74-4EC7-8910-0D64BA9FB173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{122283D4-3D74-4EC7-8910-0D64BA9FB173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{122283D4-3D74-4EC7-8910-0D64BA9FB173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{122283D4-3D74-4EC7-8910-0D64BA9FB173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E70BEDB7-DC62-4ED7-BFD7-8AA6D26070D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E70BEDB7-DC62-4ED7-BFD7-8AA6D26070D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E70BEDB7-DC62-4ED7-BFD7-8AA6D26070D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E70BEDB7-DC62-4ED7-BFD7-8AA6D26070D5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BADAEA0C-117C-4C11-A034-200D5ABDFEBF}
+	EndGlobalSection
+EndGlobal

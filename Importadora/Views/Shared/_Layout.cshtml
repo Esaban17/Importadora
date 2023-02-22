@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Importadora</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Importadora.styles.css" asp-append-version="true" />
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,300italic,300&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="~/css/font-awesome.min.css">
+	<link rel="stylesheet" href="~/css/zabuto_calendar.css">
+	<link rel="stylesheet" href="~/css/flexslider.css">
+	<link rel="stylesheet" href="~/css/jquery.fancybox.css">
+	<link rel="stylesheet" href="~/css/ion.rangeSlider.css">
+	<link rel="stylesheet" href="~/css/ion.rangeSlider.skinFlat.css">
+	<link rel="stylesheet" href="~/css/style.css">
+	<link rel="stylesheet" href="~/css/media.css">
+</head>
+<body>
+	<!-- Header - start -->
+	<div class="header">
+
+		<!-- Navmenu Mobile Toggle Button -->
+		<a href="#" class="header-menutoggle" id="header-menutoggle">Menu</a>
+
+		<div class="header-info">
+
+			<!-- Personal Menu -->
+			<div class="header-personal">
+				<a href="#" class="header-gopersonal"></a>
+				<ul>
+					<li>
+						<a href="message.html">Messages <span>12</span></a>
+					</li>
+					<li>
+						<a href="#">Bookmarks <span>6</span></a>
+					</li>
+					<li>
+						<a href="cart.html">Shopping Cart <span>5</span></a>
+					</li>
+					<li class="header-order">
+						<a href="orders.html">Order Status</a>
+					</li>
+					<li>
+						<a href="#">Settings</a>
+					</li>
+					<li>
+						<a href="#">Log out</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Small Cart -->
+			<a href="cart.html" class="header-cart">
+				<div class="header-cart-inner">
+					<p class="header-cart-count">
+						<img src="~/img/cart.png" alt="">
+						<span>3</span>
+					</p>
+					<p class="header-cart-summ">$300</p>
+				</div>
+			</a>
+
+			<a href="#" class="header-compare"></a>
+			<a href="#" class="header-favorites"></a>
+
+			<!-- Search Form -->
+			<a href="#" class="header-searchbtn" id="header-searchbtn"></a>
+			<form action="#" class="header-search" id="header-search">
+				<input type="text" placeholder="Search parts or vehicles">
+				<button type="submit"><i class="fa fa-search"></i></button>
+			</form>
+
+		</div>
+
+		<!-- Logotype -->
+		<p class="header-logo">
+			<a href="index.html"><img src="~/img/logo.png" alt=""></a>
+		</p>
+
+		<!-- Navmenu - start -->
+		<nav id="top-menu">
+			<ul>
+				<li class="active">
+					<a href="index.html">Home</a>
+				</li>
+				<li class="has-child">
+					<a href="catalog.html">Catalog</a>
+					<i class="fa fa-angle-down"></i>
+					<ul>
+						<li><a asp-controller="Vehiculo" asp-action="Create">Create</a></li>
+						<li><a asp-controller="Vehiculo" asp-action="Edit">Edit</a></li>
+						<li><a asp-controller="Vehiculo" asp-action="List">List</a></li>
+					</ul>
+				</li>
+				<li class="has-child">
+					<a href="#">Clients</a>
+					<i class="fa fa-angle-down"></i>
+					<ul>
+						<li><a asp-controller="Cliente" asp-action="Create">Create</a></li>
+						<li><a asp-controller="Cliente" asp-action="Edit">Edit</a></li>
+						<li><a asp-controller="Cliente" asp-action="List">List</a></li>
+					</ul>
+				</li>
+				<li class="has-child">
+					<a href="orders.html">Orders</a>
+					<i class="fa fa-angle-down"></i>
+					<ul>
+						<li><a asp-controller="Compra" asp-action="Create">Create</a></li>
+						<li><a asp-controller="Compra" asp-action="Edit">Edit</a></li>
+						<li><a asp-controller="Compra" asp-action="List">List</a></li>
+					</ul>
+				</li>
+				<li class="has-child">
+					<a href="blog.html">About</a>
+				</li>
+			</ul>
+		</nav>
+		<!-- Navmenu - end -->
+
+	</div>
+	<!-- Header - end -->
+    
+	<div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+	<!-- Footer - start -->
+	<footer class="footer">
+		<div class="cont footer-top">
+
+			<!-- Footer Menu -->
+			<div class="footer-menu">
+				<p>Company</p>
+				<ul>
+					<li><a href="#">Shipping</a></li>
+					<li><a href="#">Careers</a></li>
+					<li><a href="#">About us</a></li>
+				</ul>
+			</div>
+			<div class="footer-menu">
+				<p>Information</p>
+				<ul>
+					<li><a href="#">Affiliate Program</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+					<li><a href="#">Site Map</a></li>
+					<li><a href="#">Search Terms</a></li>
+				</ul>
+			</div>
+			<div class="footer-menu">
+				<p>Account & Orders</p>
+				<ul>
+					<li><a href="#">My Account</a></li>
+					<li><a href="#">My Garage</a></li>
+					<li><a href="#">Shopping Cart</a></li>
+					<li><a href="#">Order Status</a></li>
+				</ul>
+			</div>
+
+			<div class="footer-info">
+				<p class="footer-msg">Our online support is available <a class="callback" href="#">Send us a message</a></p>
+				<form action="#" class="form-validate">
+					<input data-required="text" data-required-email="email" type="text" placeholder="Email address" name="email1">
+					<input type="submit" value="Subscribe">
+				</form>
+			</div>
+
+		</div>
+		<div class="copyright">
+			<p class="cont">© 2023 Stockware All Right Received</p>
+		</div>
+	</footer>
+	<!-- Footer - end -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/jquery-1.12.3.min.js"></script>
+	<script src="~/js/fancybox/fancybox.js"></script>
+	<script src="~/js/fancybox/helpers/jquery.fancybox-thumbs.js"></script>
+	<script src="~/js/jquery.flexslider-min.js"></script>
+	<script src="~/js/masonry.pkgd.min.js"></script>
+	<script src="~/js/jquery.fractionslider.min.js"></script>
+	<script src="~/js/ion.rangeSlider.min.js"></script>
+	<script src="~/js/main.js"></script>
+	<script>
+		"use strict";
+		// Range Slider
+		$(document).ready(function () {
+			var $range_cost = $("#range_cost");
+			$range_cost.ionRangeSlider({
+				type: "double",
+				grid: true,
+				min: 0,
+				max: 20000,
+				from: 200,
+				to: 14000,
+				prefix: "$",
+			});
+			$range_cost.on("change", function () {
+				var $this = $(this),
+					value = $this.prop("value").split(";");
+
+				$('#range_cost_ttl').html("$" + value[0] + " - $" + value[1]);
+			});
+			var $range_year = $("#range_year");
+			$range_year.ionRangeSlider({
+				type: "double",
+				grid: true,
+				min: 1990,
+				max: 2023,
+				from: 2013,
+				to: 2023,
+			});
+			$range_year.on("change", function () {
+				var $this = $(this),
+					value = $this.prop("value").split(";");
+
+				$('#range_year_ttl').html(value[0] + " - " + value[1]);
+			});
+		});
+	</script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
