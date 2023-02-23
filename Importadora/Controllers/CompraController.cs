@@ -27,7 +27,10 @@ namespace Importadora.Controllers
         // GET: CompraController/List
         public ActionResult List()
         {
-            return View();
+            var db = new ImportadoraContext();
+            var compras = db.Compras.ToList();
+
+            return View(compras);
         }
 
         // POST: CompraController/Create

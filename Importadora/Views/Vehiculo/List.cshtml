@@ -12,7 +12,7 @@
         {
             <div class="sectls">
                 <a href="product.html" class="sectls-img">
-                    <img src="~/img/AMG.png" alt="">
+                    <img src="~/img/AMG.jpg" alt="">
                 </a>
                 <div class="sectls-cont">
                     <div class="sectls-ttl-wrap">
@@ -27,13 +27,13 @@
                         <p>Quantity</p>
                         <p class="qnt-wrap sectls-qnt">
                             <a href="#" class="qnt-minus sectls-minus">-</a>
-                            <input type="text" value="@Html.DisplayFor(modelItem => item.Cantidad)">
+                            <input id="quantity" type="text" value="@Html.DisplayFor(modelItem => item.Cantidad)">
                             <a href="#" class="qnt-plus sectls-plus">+</a>
                         </p>
                     </div>
                     <div class="sectls-total-wrap">
                         <p>Total</p>
-                        <p class="sectls-total"></p>
+                        <p class="sectls-total">$0.00</p>
                     </div>
                 </div>
                 <div class="sectls-info">

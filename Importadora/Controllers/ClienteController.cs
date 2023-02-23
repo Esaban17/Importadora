@@ -28,7 +28,10 @@ namespace Importadora.Controllers
         // GET: ClienteController/List
         public ActionResult List()
         {
-            return View();
+            var db = new ImportadoraContext();
+            var clientes = db.Clientes.ToList();
+
+            return View(clientes);
         }
 
         // POST: ClienteController/Create
