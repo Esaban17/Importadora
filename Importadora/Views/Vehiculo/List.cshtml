@@ -4,56 +4,58 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Marca)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Modelo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Anio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Precio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cantidad)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cantidad)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="cont maincont">
+    <h1><span>Vehiculos</span></h1>
+    <!-- Catalog Items - start -->
+    <div class="section-list">
+        @foreach (var item in Model)
+        {
+            <div class="sectls">
+                <a href="product.html" class="sectls-img">
+                    <img src="~/img/AMG.png" alt="">
+                </a>
+                <div class="sectls-cont">
+                    <div class="sectls-ttl-wrap">
+                        <p><a href="#">@Html.DisplayFor(modelItem => item.Marca)</a></p>
+                        <h3><a href="product.html">@Html.DisplayFor(modelItem => item.Modelo)</a></h3>
+                    </div>
+                    <div class="sectls-price-wrap">
+                        <p>Price</p>
+                        <p class="sectls-price">$@Html.DisplayFor(modelItem => item.Precio)</p>
+                    </div>
+                    <div class="sectls-qnt-wrap">
+                        <p>Quantity</p>
+                        <p class="qnt-wrap sectls-qnt">
+                            <a href="#" class="qnt-minus sectls-minus">-</a>
+                            <input type="text" value="@Html.DisplayFor(modelItem => item.Cantidad)">
+                            <a href="#" class="qnt-plus sectls-plus">+</a>
+                        </p>
+                    </div>
+                    <div class="sectls-total-wrap">
+                        <p>Total</p>
+                        <p class="sectls-total"></p>
+                    </div>
+                </div>
+                <div class="sectls-info">
+                    <div class="sectls-rating-wrap">
+                        <p class="sectls-rating">
+                            <i class="fa fa-star-o" title="5"></i><i class="fa fa-star-o" title="4"></i><i class="fa fa-star-o" title="3"></i><i class="fa fa-star-o" title="2"></i><i class="fa fa-star-o" title="1"></i>
+                        </p>
+                        <p><span class="sectls-rating-count">89</span> reviews</p>
+                    </div>
+                    <p class="sectls-id">Año: @Html.DisplayFor(modelItem => item.Anio)</p>
+                    <p class="sectls-add">
+                        <a href="#">Add to cart</a>
+                    </p>
+                    <p class="sectls-favorites">
+                        <a href="#"></a>
+                    </p>
+                    <p class="sectls-compare">
+                        <a href="#"></a>
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- Catalog Items - end -->
+</div>

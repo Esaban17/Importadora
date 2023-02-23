@@ -24,6 +24,15 @@ namespace Importadora.Controllers
             return View();
         }
 
+        // GET: VehiculoController/List
+        public ActionResult List()
+        {
+            var db = new ImportadoraContext();
+            var vehiculos = db.Vehiculos.ToList();
+
+           return View(vehiculos);
+        }
+
         // POST: VehiculoController/Create
         [HttpPost]
         public IActionResult Create(IFormCollection formCollection)
