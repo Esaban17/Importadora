@@ -1,59 +1,63 @@
-﻿@model IEnumerable<Importadora.Models.Compra>
+﻿@model IEnumerable<ImportadoraModels.Compra>
 
 @{
     ViewData["Title"] = "List";
 }
 
 
-<!-- Orders List - start -->
-<div class="section-list orders-list">
-    @foreach (var item in Model)
-    {
-        <div class="sectls">
-            <a href="product.html" class="sectls-img">
-                <img src="img/pop1.jpg" alt="">
-            </a>
-            <div class="sectls-cont">
-                <div class="sectls-ttl-wrap">
-                    <p><a href="#">Suspensions</a></p>
-                    <h3><a href="product.html">Quisque rutrum nunc eget nisl auctor</a></h3>
+<div class="cont maincont">
+    <p><a asp-controller="Compra" asp-action="Create">Agregar Compra</a></p>
+    <h1><span>Compra</span></h1>
+    <!-- Orders List - start -->
+    <div class="section-list orders-list">
+        @foreach (var item in Model)
+        {
+            <div class="sectls">
+                <a href="product.html" class="sectls-img">
+                    <img src="img/pop1.jpg" alt="">
+                </a>
+                <div class="sectls-cont">
+                    <div class="sectls-ttl-wrap">
+                        <p><a href="#">Suspensions</a></p>
+                        <h3><a href="product.html">Quisque rutrum nunc eget nisl auctor</a></h3>
+                    </div>
+                    <div class="sectls-price-wrap">
+                        <p>Purchased</p>
+                        <p class="sectls-price">2 items</p>
+                    </div>
+                    <div class="sectls-col2-wrap">
+                        <p>Destination</p>
+                        <p class="sectls-col2">IA - US</p>
+                    </div>
+                    <div class="sectls-col3-wrap">
+                        <p>Status</p>
+                        <p class="sectls-col3">Shipping</p>
+                    </div>
+                    <div class="sectls-total-wrap">
+                        <p>Order amount</p>
+                        <p class="sectls-total">$200</p>
+                    </div>
                 </div>
-                <div class="sectls-price-wrap">
-                    <p>Purchased</p>
-                    <p class="sectls-price">2 items</p>
-                </div>
-                <div class="sectls-col2-wrap">
-                    <p>Destination</p>
-                    <p class="sectls-col2">IA - US</p>
-                </div>
-                <div class="sectls-col3-wrap">
-                    <p>Status</p>
-                    <p class="sectls-col3">Shipping</p>
-                </div>
-                <div class="sectls-total-wrap">
-                    <p>Order amount</p>
-                    <p class="sectls-total">$200</p>
-                </div>
-            </div>
-            <div class="sectls-info">
-                <div class="sectls-rating-wrap">
-                    <p class="sectls-rating">
-                        <i class="fa fa-star-o" title="5"></i><i class="fa fa-star-o" title="4"></i><i class="fa fa-star-o" title="3"></i><i class="fa fa-star-o" title="2"></i><i class="fa fa-star-o" title="1"></i>
+                <div class="sectls-info">
+                    <div class="sectls-rating-wrap">
+                        <p class="sectls-rating">
+                            <i class="fa fa-star-o" title="5"></i><i class="fa fa-star-o" title="4"></i><i class="fa fa-star-o" title="3"></i><i class="fa fa-star-o" title="2"></i><i class="fa fa-star-o" title="1"></i>
+                        </p>
+                        <p><span class="sectls-rating-count">89</span> reviews</p>
+                    </div>
+                    <p class="sectls-id">id 5376445</p>
+                    <p class="sectls-add">
+                        <a href="#">Cancel the order</a>
                     </p>
-                    <p><span class="sectls-rating-count">89</span> reviews</p>
+                    <p class="sectls-favorites">
+                        <a href="#"></a>
+                    </p>
+                    <p class="sectls-compare">
+                        <a href="#"></a>
+                    </p>
                 </div>
-                <p class="sectls-id">id 5376445</p>
-                <p class="sectls-add">
-                    <a href="#">Cancel the order</a>
-                </p>
-                <p class="sectls-favorites">
-                    <a href="#"></a>
-                </p>
-                <p class="sectls-compare">
-                    <a href="#"></a>
-                </p>
             </div>
-        </div>
-    }
+        }
+    </div>
+    <!-- Orders List - end -->
 </div>
-<!-- Orders List - end -->

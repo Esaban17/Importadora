@@ -38,11 +38,16 @@ CREATE TABLE usuarios (
 -- Tabla de compras
 CREATE TABLE compras (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  cliente_id INT NOT NULL,
+  usuario_id INT NOT NULL,
   vehiculo_id INT NOT NULL,
   fecha_compra DATE NOT NULL,
   cantidad INT NULL,
   precio_total DECIMAL(10, 2) NOT NULL,
-  FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id)
 );
+
+
+INSERT INTO roles (rol) VALUES ('super');
+INSERT INTO roles (rol) VALUES ('admin');
+INSERT INTO roles (rol) VALUES ('cliente');

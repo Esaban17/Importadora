@@ -25,21 +25,20 @@ namespace Importadora.Controllers
         }
 
         // GET: VehiculoController/List
-        public ActionResult List()
+        public async Task<IActionResult> List()
         {
-            var db = new ImportadoraContext();
-            var vehiculos = db.Vehiculos.ToList();
+            IEnumerable<ImportadoraModels.Vehiculo> vehiculos = await Services.VehiculoService.GetVehiculos();
 
-           return View(vehiculos);
+            return View(vehiculos);
         }
 
         // POST: VehiculoController/Create
         [HttpPost]
-        public IActionResult Create(IFormCollection formCollection)
+        public async Task<IActionResult> Create(IFormCollection formCollection)
         {
             var db = new ImportadoraContext();
 
-            var Vehiculo = new Vehiculo
+            var newVehiculo = new ImportadoraModels.Vehiculo
             {
                 Marca = formCollection["Marca"],
                 Modelo = formCollection["Modelo"],
@@ -48,8 +47,7 @@ namespace Importadora.Controllers
                 Cantidad = Convert.ToInt32(formCollection["Cantidad"])
             };
 
-            db.Vehiculos.Add(Vehiculo);
-            db.SaveChanges();
+            await Services.VehiculoService.Create(newVehiculo);
 
             return View();
         }

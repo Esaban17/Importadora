@@ -1,6 +1,7 @@
 ﻿using Importadora.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Utilities;
 
 namespace Importadora.Controllers
 {
@@ -35,11 +36,11 @@ namespace Importadora.Controllers
 
         // POST: UsuarioController/Create
         [HttpPost]
-        public IActionResult Create(IFormCollection formCollection)
+        public async Task<IActionResult> Create(IFormCollection formCollection)
         {
             var db = new ImportadoraContext();
 
-            var Usuario = new Usuario { 
+            var newUsuario = new ImportadoraModels.Usuario { 
                 Nombre = formCollection["Nombre"],
                 Apellido = formCollection["Apellido"],
                 Correo = formCollection["Correo"],
@@ -48,11 +49,11 @@ namespace Importadora.Controllers
                 Ciudad = formCollection["Ciudad"],
                 Estado = formCollection["Estado"],
                 CodigoPostal = formCollection["CodigoPostal"],
-                Telefono = formCollection["Telefono"]
+                Telefono = formCollection["Telefono"],
+                RolId = Convert.ToInt32(formCollection["RolId"])
             };
 
-            db.Usuarios.Add(Usuario);
-            db.SaveChanges();
+            await Services.UsuarioService.Create(newUsuario);
        
             return View();
         }

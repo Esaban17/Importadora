@@ -12,16 +12,6 @@ namespace API.Controllers
     public class CompraController : ControllerBase
     {
 
-        [HttpGet("private")]
-        [Authorize]
-        public IActionResult Private()
-        {
-            return Ok(new
-            {
-                Message = "Hello from a private endpoint!"
-            });
-        }
-
         // GET: api/<CompraController>
         [HttpGet]
         [Route("GetCompras")]

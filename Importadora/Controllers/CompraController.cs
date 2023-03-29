@@ -28,20 +28,20 @@ namespace Importadora.Controllers
         public async Task<IActionResult> List()
         {
 
-            ViewBag.Vehiculos = await Services.UsuarioService.GetUsuarios(); ;
+            ViewBag.Vehiculos = await Services.VehiculoService.GetVehiculos(); ;
 
-            IEnumerable<ImportadoraModels.Usuario> usuarios = await Services.UsuarioService.GetUsuarios();
+            IEnumerable<ImportadoraModels.Compra> compras = await Services.CompraService.GetCompras();
 
-            return View(usuarios);
+            return View(compras);
         }
 
         // POST: CompraController/Create
         [HttpPost]
-        public IActionResult Create(IFormCollection formCollection)
+        public async Task<IActionResult> Create(IFormCollection formCollection)
         {
             var db = new ImportadoraContext();
 
-            var Compra = new Compra
+            var newCompra = new ImportadoraModels.Compra
             {
                 UsuarioId = Convert.ToInt32(formCollection["UsuarioId"]),
                 VehiculoId = Convert.ToInt32(formCollection["VehiculoId"]),
@@ -50,8 +50,7 @@ namespace Importadora.Controllers
                 PrecioTotal = Convert.ToDecimal(formCollection["PrecioTotal"])
             };
 
-            db.Compras.Add(Compra);
-            db.SaveChanges();
+            await Services.CompraService.Create(newCompra);
 
             return View();
         }

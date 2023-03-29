@@ -30,7 +30,8 @@ namespace API.Controllers
                 Ciudad = s.Ciudad,
                 Estado = s.Estado,
                 CodigoPostal = s.CodigoPostal,
-                Telefono = s.Telefono
+                Telefono = s.Telefono,
+                RolId = s.RolId
             }
             ).ToList();
             return Usuarios;
@@ -54,7 +55,8 @@ namespace API.Controllers
                 Ciudad = s.Ciudad,
                 Estado = s.Estado,
                 CodigoPostal = s.CodigoPostal,
-                Telefono = s.Telefono
+                Telefono = s.Telefono,
+                RolId = s.RolId
             }
             ).FirstAsync(s => s.Id == id);
             return Usuario;
@@ -83,7 +85,8 @@ namespace API.Controllers
                     Ciudad = Usuario.Ciudad,
                     Estado = Usuario.Estado,
                     CodigoPostal = Usuario.CodigoPostal,
-                    Telefono = Usuario.Telefono
+                    Telefono = Usuario.Telefono,
+                    RolId = Usuario.RolId,
                 };
                 _importadoraContext.Usuarios.Add(newClient);
                 await _importadoraContext.SaveChangesAsync();
