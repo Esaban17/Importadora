@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="~/css/media.css">
 </head>
 <body>
+
 	<!-- Header - start -->
 	<div class="header">
 
@@ -85,37 +86,19 @@
 		<nav id="top-menu">
 			<ul>
 				<li class="active">
-					<a href="index.html">Home</a>
+					<a asp-controller="Home" asp-action="Index">Home</a>
 				</li>
 				<li class="has-child">
-					<a href="catalog.html">Catalog</a>
-					<i class="fa fa-angle-down"></i>
-					<ul>
-						<li><a asp-controller="Vehiculo" asp-action="Create">Create</a></li>
-						<li><a asp-controller="Vehiculo" asp-action="Edit">Edit</a></li>
-						<li><a asp-controller="Vehiculo" asp-action="List">List</a></li>
-					</ul>
+					<a asp-controller="Vehiculo" asp-action="List">Vehiculos</a>
 				</li>
 				<li class="has-child">
-					<a href="#">Clients</a>
-					<i class="fa fa-angle-down"></i>
-					<ul>
-						<li><a asp-controller="Cliente" asp-action="Create">Create</a></li>
-						<li><a asp-controller="Cliente" asp-action="Edit">Edit</a></li>
-						<li><a asp-controller="Cliente" asp-action="List">List</a></li>
-					</ul>
+					<a asp-controller="Cliente" asp-action="List">Clientes</a>
 				</li>
 				<li class="has-child">
-					<a href="orders.html">Orders</a>
-					<i class="fa fa-angle-down"></i>
-					<ul>
-						<li><a asp-controller="Compra" asp-action="Create">Create</a></li>
-						<li><a asp-controller="Compra" asp-action="Edit">Edit</a></li>
-						<li><a asp-controller="Compra" asp-action="List">List</a></li>
-					</ul>
+					<a asp-controller="Compra" asp-action="List">Compras</a>
 				</li>
 				<li class="has-child">
-					<a href="blog.html">About</a>
+					<a asp-controller="Home" asp-action="About">Acerca de Nosotros</a>
 				</li>
 			</ul>
 		</nav>

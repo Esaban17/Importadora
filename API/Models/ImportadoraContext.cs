@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Importadora.Models;
+namespace API.Models;
 
 public partial class ImportadoraContext : DbContext
 {

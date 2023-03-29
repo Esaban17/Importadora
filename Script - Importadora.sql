@@ -14,8 +14,13 @@ CREATE TABLE vehiculos (
   cantidad INT NULL
 );
 
--- Tabla de clientes
-CREATE TABLE clientes (
+CREATE TABLE roles (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    rol VARCHAR(50) NOT NULL
+);
+
+-- Tabla de usuarios
+CREATE TABLE usuarios (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nombre VARCHAR(50) NOT NULL,
   apellido VARCHAR(50) NOT NULL,
@@ -25,7 +30,9 @@ CREATE TABLE clientes (
   ciudad VARCHAR(50) NULL,
   estado VARCHAR(50) NULL,
   codigo_postal VARCHAR(10) NULL,
-  telefono VARCHAR(20) NULL
+  telefono VARCHAR(20) NULL,
+  rol_id INT NOT NULL,
+  FOREIGN KEY (rol_id) REFERENCES roles(id)
 );
 
 -- Tabla de compras

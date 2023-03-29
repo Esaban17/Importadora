@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Importadora.Models;
+namespace API.Models;
 
 public partial class Compra
 {
