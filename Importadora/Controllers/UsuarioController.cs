@@ -6,35 +6,34 @@ namespace Importadora.Controllers
 {
     public class UsuarioController : Controller
     {
-        // GET: ClienteController
+        // GET: UsuarioController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: ClienteController/Create
+        // GET: UsuarioController/Create
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // GET: ClienteController/Edit
+        // GET: UsuarioController/Edit
         public ActionResult Edit()
         {
             return View();
         }
 
-        // GET: ClienteController/List
-        public ActionResult List()
+        // GET: UsuarioController/List
+        public async Task<IActionResult> List()
         {
-            var db = new ImportadoraContext();
-            var clientes = db.Usuarios.ToList();
+            IEnumerable<ImportadoraModels.Usuario> usuarios = await Services.UsuarioService.GetUsuarios();
 
-            return View(clientes);
+            return View(usuarios);
         }
 
-        // POST: ClienteController/Create
+        // POST: UsuarioController/Create
         [HttpPost]
         public IActionResult Create(IFormCollection formCollection)
         {

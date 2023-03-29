@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Importadora.Models.Cliente>
+﻿@model IEnumerable<ImportadoraModels.Usuario>
 
 @{
     ViewData["Title"] = "List";
@@ -6,8 +6,8 @@
 
 
 <div class="cont maincont">
-    <p><a asp-controller="Cliente" asp-action="Create">Agregar Cliente</a></p>
-    <h1><span>Clientes</span></h1>
+    <p><a asp-controller="Usuario" asp-action="Create">Agregar Usuario</a></p>
+    <h1><span>Usuarios</span></h1>
     <!-- Catalog Items - start -->
     <div class="section-list">
         @foreach (var item in Model)

@@ -2,13 +2,13 @@
 
 namespace Importadora.Services
 {
-    public static class APIServices
+    public static class CompraService
     {
 
         private static int timeout = 30;
-        private static string baseurl = "https://localhost/API/";
+        private static string baseurl = "https://localhost:7135/api/";
 
-        public static async System.Threading.Tasks.Task<IEnumerable<ImportadoraModels.Usuario>> GetClientes()
+        public static async System.Threading.Tasks.Task<IEnumerable<ImportadoraModels.Compra>> GetCompras()
         {
 
 
@@ -22,11 +22,11 @@ namespace Importadora.Services
             HttpClient httpClient = new HttpClient(clientHandler);
             httpClient.Timeout = TimeSpan.FromSeconds(timeout);
 
-            var response = await httpClient.PostAsync(baseurl + "Cliente/GetClientes", null);
+            var response = await httpClient.GetAsync(baseurl + "Compra/GetCompras");
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return JsonConvert.DeserializeObject<IEnumerable<ImportadoraModels.Usuario>>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<IEnumerable<ImportadoraModels.Compra>>(await response.Content.ReadAsStringAsync());
             }
 
             else

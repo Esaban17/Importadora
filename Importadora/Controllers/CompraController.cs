@@ -25,16 +25,14 @@ namespace Importadora.Controllers
         }
 
         // GET: CompraController/List
-        public ActionResult List()
+        public async Task<IActionResult> List()
         {
-            var db = new ImportadoraContext();
-            var compras = db.Compras.ToList();
 
-            var vehiculos = db.Vehiculos.ToList();
+            ViewBag.Vehiculos = await Services.UsuarioService.GetUsuarios(); ;
 
-            ViewBag.Vehiculos = vehiculos;
+            IEnumerable<ImportadoraModels.Usuario> usuarios = await Services.UsuarioService.GetUsuarios();
 
-            return View(compras);
+            return View(usuarios);
         }
 
         // POST: CompraController/Create
