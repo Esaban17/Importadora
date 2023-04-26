@@ -1,8 +1,16 @@
 ﻿using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static Mysqlx.Crud.Order.Types;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using NuGet.Common;
+using Microsoft.AspNetCore.Authorization;
+using API.Services;
+using API.Helpers;
+using System.Security.Cryptography;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +20,14 @@ namespace API.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private readonly string secretKey;
+
+        public UsuarioController(IConfiguration config)
+        {
+            secretKey = config.GetSection("settings").GetSection("secretKey").ToString();
+        }
+
+
         // GET: api/<UsuarioController>
         [HttpGet]
         [Route("GetUsuarios")]
@@ -65,7 +81,7 @@ namespace API.Controllers
         // POST api/<UsuarioController>
         [Route("Create")]
         [HttpPost]
-        public async Task<ImportadoraModels.GeneralResult> Create(ImportadoraModels.Usuario Usuario)
+        public async Task<ImportadoraModels.GeneralResult> Create(ImportadoraModels.Usuario usuario)
         {
             ImportadoraModels.GeneralResult generalResult = new ImportadoraModels.GeneralResult()
             {
@@ -75,22 +91,37 @@ namespace API.Controllers
             try
             {
                 ImportadoraContext _importadoraContext = new ImportadoraContext();
-                Models.Usuario newClient = new Models.Usuario
+
+                if (ExisteCorreo(usuario.Correo))
                 {
-                    Nombre = Usuario.Nombre,
-                    Apellido = Usuario.Apellido,
-                    Correo = Usuario.Correo,
-                    Password = Usuario.Password,
-                    Direccion = Usuario.Direccion,
-                    Ciudad = Usuario.Ciudad,
-                    Estado = Usuario.Estado,
-                    CodigoPostal = Usuario.CodigoPostal,
-                    Telefono = Usuario.Telefono,
-                    RolId = Usuario.RolId,
-                };
-                _importadoraContext.Usuarios.Add(newClient);
-                await _importadoraContext.SaveChangesAsync();
-                generalResult.Result = true;
+                    generalResult.Result = false;
+                    generalResult.ErrorMessage = "ERROR ya existe un usuario con ese correo";
+                }
+                else
+                {
+                    //GENERAMOS UN SALT ALEATORIO PARA CADA USUARIO
+                    var Salt = HelperCryptography.GenerateSalt();
+                    //GENERAMOS SU PASSWORD CON EL SALT
+                    string encryptPassword = Encrypt(usuario.Password, Salt);
+
+                    Models.Usuario newClient = new Models.Usuario
+                    {
+                        Nombre = usuario.Nombre,
+                        Apellido = usuario.Apellido,
+                        Correo = usuario.Correo,
+                        Password = encryptPassword,
+                        Salt = Salt,
+                        Direccion = usuario.Direccion,
+                        Ciudad = usuario.Ciudad,
+                        Estado = usuario.Estado,
+                        CodigoPostal = usuario.CodigoPostal,
+                        Telefono = usuario.Telefono,
+                        RolId = usuario.RolId,
+                    };
+                    _importadoraContext.Usuarios.Add(newClient);
+                    await _importadoraContext.SaveChangesAsync();
+                    generalResult.Result = true;
+                }
             }
             catch (Exception ex)
             {
@@ -182,5 +213,118 @@ namespace API.Controllers
             }
             return generalResult;
         }
+
+        // LOGIN USUARIOS api/<UsuarioController>/5
+        [Route("Authenticate")]
+        [HttpPost]
+        public async Task<IActionResult> Validate(ImportadoraModels.Usuario usuario)
+        {
+            ImportadoraModels.GeneralResult generalResult = new ImportadoraModels.GeneralResult()
+            {
+                Result = false
+            };
+
+            try
+            {
+
+                ImportadoraContext _importadoraContext = new ImportadoraContext();
+
+                Usuario userDB = await _importadoraContext.Usuarios.SingleOrDefaultAsync(x => x.Correo.ToLower() == usuario.Correo.ToLower());
+
+                //Debemos comparar con la base de datos el password haciendo de nuevo el cifrado con cada salt de usuario
+                string passUsuario = userDB.Password;
+                string salt = userDB.Salt;
+                //Ciframos de nuevo para comparar
+                string passTemporal = Encrypt(usuario.Password, salt);
+
+                //Comparamos los arrays para comprobar si el cifrado es el mismo
+                bool isEquals = passTemporal.Equals(passUsuario);
+                if (isEquals)
+                {
+                    var keyBytes = Encoding.ASCII.GetBytes(secretKey);
+                    var claims = new ClaimsIdentity();
+
+                    claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, usuario.Correo));
+
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = claims,
+                        Expires = DateTime.UtcNow.AddMinutes(10),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature),
+                    };
+
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var tokenConfig = tokenHandler.CreateToken(tokenDescriptor);
+
+                    string token = tokenHandler.WriteToken(tokenConfig);
+
+                    return StatusCode(StatusCodes.Status200OK, new { token });
+                }
+                else
+                {
+                    //Contraseña incorrecta
+                    return StatusCode(StatusCodes.Status401Unauthorized, new { token = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                generalResult.Result = false;
+                generalResult.ErrorMessage = ex.Message;
+            }
+            return StatusCode(StatusCodes.Status401Unauthorized, new { token = "" });
+        }
+
+        private bool ExisteCorreo(string correo)
+        {
+            ImportadoraContext _importadoraContext = new ImportadoraContext();
+            var consulta = from datos in _importadoraContext.Usuarios
+                           where datos.Correo == correo
+                           select datos;
+            if (consulta.Count() > 0)
+            {
+                //El email existe en la base de datos
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private string Encrypt(string password, string randomSalt)
+        {
+            string hash = randomSalt;
+            byte[] data = UTF8Encoding.UTF8.GetBytes(password);
+
+            MD5 md5 = MD5.Create();
+            TripleDES tripDES = TripleDES.Create();
+
+            tripDES.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+            tripDES.Mode = CipherMode.ECB;
+
+            ICryptoTransform cryptoTransform = tripDES.CreateEncryptor();
+            byte[] result =  cryptoTransform.TransformFinalBlock(data, 0, data.Length);
+
+            return Convert.ToBase64String(result);
+        }
+
+        private string Decrypt(string encryptPass, string randomSalt)
+        {
+            string hash = randomSalt;
+            byte[] data = Convert.FromBase64String(encryptPass);
+
+            MD5 md5 = MD5.Create();
+            TripleDES tripDES = TripleDES.Create();
+
+            tripDES.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+            tripDES.Mode = CipherMode.ECB; 
+
+            ICryptoTransform cryptoTransform = tripDES.CreateDecryptor();
+            byte[] result = cryptoTransform.TransformFinalBlock(data, 0, data.Length);
+
+
+            return UTF8Encoding.UTF8.GetString(result);
+        }
+
     }
 }

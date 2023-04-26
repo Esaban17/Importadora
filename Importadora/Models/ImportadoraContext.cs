@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using ImportadoraModels;
 
 namespace Importadora.Models;
 
@@ -119,6 +120,9 @@ public partial class ImportadoraContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");
+            entity.Property(e => e.Salt)
+                .HasMaxLength(50)
+                .HasColumnName("salt");
             entity.Property(e => e.RolId).HasColumnName("rol_id");
             entity.Property(e => e.Telefono)
                 .HasMaxLength(20)
@@ -154,4 +158,10 @@ public partial class ImportadoraContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public DbSet<ImportadoraModels.Compra> Compra { get; set; } = default!;
+
+    public DbSet<ImportadoraModels.Usuario> Usuario { get; set; } = default!;
+
+    public DbSet<ImportadoraModels.Vehiculo> Vehiculo { get; set; } = default!;
 }

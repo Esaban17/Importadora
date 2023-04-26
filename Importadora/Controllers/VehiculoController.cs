@@ -24,6 +24,18 @@ namespace Importadora.Controllers
             return View();
         }
 
+        // GET: VehiculoController/Details
+        public ActionResult Details()
+        {
+            return View();
+        }
+
+        // GET: VehiculoController/Delete
+        public ActionResult Delete()
+        {
+            return View();
+        }
+
         // GET: VehiculoController/List
         public async Task<IActionResult> List()
         {
@@ -48,6 +60,29 @@ namespace Importadora.Controllers
             };
 
             await Services.VehiculoService.Create(newVehiculo);
+
+            return View();
+        }
+
+        // PUT: VehiculoController/Update
+        [HttpPut]
+        public async Task<IActionResult> Edit(IFormCollection formCollection)
+        {
+
+            var updateVehiculo = await Services.VehiculoService.GetVehiculo(Convert.ToInt32(formCollection["Id"]));
+
+            if (updateVehiculo != null)
+            {
+
+                updateVehiculo.Marca = formCollection["Marca"];
+                updateVehiculo.Modelo = formCollection["Modelo"];
+                updateVehiculo.Anio = Convert.ToInt32(formCollection["Anio"]);
+                updateVehiculo.Precio = Convert.ToDecimal(formCollection["Precio"]);
+                updateVehiculo.Cantidad = Convert.ToInt32(formCollection["Cantidad"]);
+
+                await Services.VehiculoService.Update(updateVehiculo);
+
+            }
 
             return View();
         }

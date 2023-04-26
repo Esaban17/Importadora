@@ -26,6 +26,18 @@ namespace Importadora.Controllers
             return View();
         }
 
+        // GET: UsuarioController/Details
+        public ActionResult Details()
+        {
+            return View();
+        }
+
+        // GET: UsuarioController/Delete
+        public ActionResult Delete()
+        {
+            return View();
+        }
+
         // GET: UsuarioController/List
         public async Task<IActionResult> List()
         {
@@ -38,8 +50,6 @@ namespace Importadora.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(IFormCollection formCollection)
         {
-            var db = new ImportadoraContext();
-
             var newUsuario = new ImportadoraModels.Usuario { 
                 Nombre = formCollection["Nombre"],
                 Apellido = formCollection["Apellido"],
@@ -55,6 +65,35 @@ namespace Importadora.Controllers
 
             await Services.UsuarioService.Create(newUsuario);
        
+            return View();
+        }
+
+
+        // PUT: UsuarioController/Update
+        [HttpPut]
+        public async Task<IActionResult> Edit(IFormCollection formCollection)
+        {
+
+            var updateUsuario = await Services.UsuarioService.GetUsuario(Convert.ToInt32(formCollection["Id"]));
+
+            if (updateUsuario != null)
+            {
+
+                updateUsuario.Nombre = formCollection["Nombre"];
+                updateUsuario.Apellido = formCollection["Apellido"];
+                updateUsuario.Correo = formCollection["Correo"];
+                updateUsuario.Password = formCollection["Password"];
+                updateUsuario.Direccion = formCollection["Direccion"];
+                updateUsuario.Ciudad = formCollection["Ciudad"];
+                updateUsuario.Estado  = formCollection["Estado"];
+                updateUsuario.CodigoPostal  = formCollection["CodigoPostal"];
+                updateUsuario.Telefono = formCollection["Telefono"];
+                updateUsuario.RolId = Convert.ToInt32(formCollection["RolId"]);
+
+                await Services.UsuarioService.Update(updateUsuario);
+
+            }
+
             return View();
         }
 

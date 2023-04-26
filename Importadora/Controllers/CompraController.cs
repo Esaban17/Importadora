@@ -24,11 +24,23 @@ namespace Importadora.Controllers
             return View();
         }
 
+        // GET: CompraController/Details
+        public ActionResult Details()
+        {
+            return View();
+        }
+
+        // GET: CompraController/Delete
+        public ActionResult Delete()
+        {
+            return View();
+        }
+
         // GET: CompraController/List
         public async Task<IActionResult> List()
         {
 
-            ViewBag.Vehiculos = await Services.VehiculoService.GetVehiculos(); ;
+            ViewBag.Vehiculos = await Services.VehiculoService.GetVehiculos();
 
             IEnumerable<ImportadoraModels.Compra> compras = await Services.CompraService.GetCompras();
 
@@ -39,8 +51,6 @@ namespace Importadora.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(IFormCollection formCollection)
         {
-            var db = new ImportadoraContext();
-
             var newCompra = new ImportadoraModels.Compra
             {
                 UsuarioId = Convert.ToInt32(formCollection["UsuarioId"]),
@@ -51,6 +61,29 @@ namespace Importadora.Controllers
             };
 
             await Services.CompraService.Create(newCompra);
+
+            return View();
+        }
+
+        // PUT: CompraController/Update
+        [HttpPut]
+        public async Task<IActionResult> Edit(IFormCollection formCollection)
+        {
+
+            var updateCompra = await Services.CompraService.GetCompra(Convert.ToInt32(formCollection["Id"]));
+
+            if (updateCompra != null)
+            {
+
+                updateCompra.UsuarioId = Convert.ToInt32(formCollection["UsuarioId"]);
+                updateCompra.VehiculoId = Convert.ToInt32(formCollection["VehiculoId"]);
+                updateCompra.FechaCompra = Convert.ToDateTime(formCollection["FechaCompra"]);
+                updateCompra.Cantidad = Convert.ToInt32(formCollection["Cantidad"]);
+                updateCompra.PrecioTotal = Convert.ToDecimal(formCollection["PrecioTotal"]);
+
+                await Services.CompraService.Update(updateCompra);
+
+            }
 
             return View();
         }

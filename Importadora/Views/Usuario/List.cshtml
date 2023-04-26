@@ -14,51 +14,37 @@
         {
             <div class="sectls">
                 <a href="product.html" class="sectls-img">
-                    <img src="~/img/AMG.jpg" alt="">
+                    <img src="~/img/user.jpg" alt="">
                 </a>
                 <div class="sectls-cont">
                     <div class="sectls-ttl-wrap">
-                        <p><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></p>
-                        <h3><a href="product.html">@Html.DisplayFor(modelItem => item.Apellido)</a></h3>
-                    </div>
-                    <div class="sectls-price-wrap">
-                        <p>Correo</p>
+                        <h3><a href="#">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.Apellido)</a></h3>
                         <p class="sectls-price">@Html.DisplayFor(modelItem => item.Correo)</p>
                     </div>
-                    <div class="sectls-qnt-wrap">
+                    <div class="sectls-price-wrap">
                         <p>Dirección</p>
-                        <p class="qnt-wrap sectls-qnt">
-                            <a href="#" class="qnt-minus sectls-minus">-</a>
-                            <input id="quantity" type="text" value="@Html.DisplayFor(modelItem => item.Direccion)">
-                            <a href="#" class="qnt-plus sectls-plus">+</a>
-                        </p>
+                        <p class="sectls-price">@Html.DisplayFor(modelItem => item.Direccion)</p>
+                    </div>
+                    <div class="sectls-price-wrap">
+                        <p>Estado</p>
+                        <p class="sectls-price">@Html.DisplayFor(modelItem => item.Estado)</p>
                     </div>
                     <div class="sectls-total-wrap">
-                        <p>Total</p>
-                        <p class="sectls-total">Ciudad: @Html.DisplayFor(modelItem => item.Ciudad)</p>
+                        <p>Ciudad</p>
+                        <p class="sectls-total">@Html.DisplayFor(modelItem => item.Ciudad)</p>
                     </div>
                 </div>
                 <div class="sectls-info">
-                    <div class="sectls-rating-wrap">
-                        <p class="sectls-rating">
-                            <i class="fa fa-star-o" title="5"></i><i class="fa fa-star-o" title="4"></i><i class="fa fa-star-o" title="3"></i><i class="fa fa-star-o" title="2"></i><i class="fa fa-star-o" title="1"></i>
-                        </p>
-                        <p><span class="sectls-rating-count">89</span> reviews</p>
-                    </div>
-                    <p class="sectls-id">Estado: @Html.DisplayFor(modelItem => item.Estado)</p>
                     <p class="sectls-add">
-                        <a href="#">Add to cart</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </p>
-                    <p class="sectls-favorites">
-                        <a href="#"></a>
+                    <p class="sectls-add">
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                     </p>
-                    <p class="sectls-compare">
-                        <a href="#"></a>
+                    <p class="sectls-add">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     </p>
                 </div>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </div>
         }
     </div>

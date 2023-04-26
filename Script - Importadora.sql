@@ -26,6 +26,7 @@ CREATE TABLE usuarios (
   apellido VARCHAR(50) NOT NULL,
   correo VARCHAR(50) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
+  salt VARCHAR(50) NOT NULL,
   direccion VARCHAR(100) NOT NULL,
   ciudad VARCHAR(50) NULL,
   estado VARCHAR(50) NULL,

@@ -14,6 +14,7 @@ public partial class Usuario
     public string Correo { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+    public string Salt { get; set; } = null!;
 
     public string Direccion { get; set; } = null!;
 

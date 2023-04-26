@@ -119,6 +119,9 @@ public partial class ImportadoraContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");
+            entity.Property(e => e.Salt)
+                .HasMaxLength(50)
+                .HasColumnName("salt");
             entity.Property(e => e.RolId).HasColumnName("rol_id");
             entity.Property(e => e.Telefono)
                 .HasMaxLength(20)
