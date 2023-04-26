@@ -17,5 +17,5 @@ public partial class Vehiculo
 
     public int? Cantidad { get; set; }
 
-    public virtual ICollection<Compra> Compras { get; } = new List<Compra>();
+    public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
 }

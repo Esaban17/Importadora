@@ -34,36 +34,19 @@
 				<a href="#" class="header-gopersonal"></a>
 				<ul>
 					<li>
-						<a href="message.html">Messages <span>12</span></a>
-					</li>
-					<li>
-						<a href="#">Bookmarks <span>6</span></a>
-					</li>
-					<li>
-						<a href="cart.html">Shopping Cart <span>5</span></a>
+						<a href="message.html">Mensajes <span>12</span></a>
 					</li>
 					<li class="header-order">
-						<a href="orders.html">Order Status</a>
+						<a href="orders.html">My Garage <span>$300</span></a>
 					</li>
 					<li>
-						<a href="#">Settings</a>
+						<a href="#">Configuración</a>
 					</li>
 					<li>
-						<a asp-controller="Home" asp-action="Login">Log out</a>
+						<a asp-controller="Home" asp-action="Login">Cerrar Sesión</a>
 					</li>
 				</ul>
 			</div>
-
-			<!-- Small Cart -->
-			<a href="cart.html" class="header-cart">
-				<div class="header-cart-inner">
-					<p class="header-cart-count">
-						<img src="~/img/cart.png" alt="">
-						<span>3</span>
-					</p>
-					<p class="header-cart-summ">$300</p>
-				</div>
-			</a>
 
 			<a href="#" class="header-compare"></a>
 			<a href="#" class="header-favorites"></a>
@@ -119,48 +102,44 @@
 
 			<!-- Footer Menu -->
 			<div class="footer-menu">
-				<p>Company</p>
+				<p>Empresa</p>
 				<ul>
-					<li><a href="#">Shipping</a></li>
-					<li><a href="#">Careers</a></li>
-					<li><a href="#">About us</a></li>
+					<li><a href="#">Marcas</a></li>
+					<li><a href="#">Acerca de Nosotros</a></li>
 				</ul>
 			</div>
 			<div class="footer-menu">
-				<p>Information</p>
+				<p>Información</p>
 				<ul>
-					<li><a href="#">Affiliate Program</a></li>
-					<li><a href="#">Privacy Policy</a></li>
-					<li><a href="#">Site Map</a></li>
-					<li><a href="#">Search Terms</a></li>
+					<li><a href="#">Políticas de Privacidad</a></li>
+					<li><a href="#">Ubicación</a></li>
 				</ul>
 			</div>
 			<div class="footer-menu">
-				<p>Account & Orders</p>
+				<p>Cuenta y Vehiculos</p>
 				<ul>
-					<li><a href="#">My Account</a></li>
+					<li><a href="#">Mi Cuenta</a></li>
 					<li><a href="#">My Garage</a></li>
-					<li><a href="#">Shopping Cart</a></li>
-					<li><a href="#">Order Status</a></li>
 				</ul>
 			</div>
 
 			<div class="footer-info">
-				<p class="footer-msg">Our online support is available <a class="callback" href="#">Send us a message</a></p>
+				<p class="footer-msg">Suscríbete para recibir ofertas y promociones</p>
 				<form action="#" class="form-validate">
-					<input data-required="text" data-required-email="email" type="text" placeholder="Email address" name="email1">
-					<input type="submit" value="Subscribe">
+					<input data-required="text" data-required-email="email" type="text" placeholder="Correo" name="email1">
+					<input type="submit" value="Suscríbete">
 				</form>
 			</div>
 
 		</div>
 		<div class="copyright">
-			<p class="cont">© 2023 Stockware All Right Received</p>
+			<p class="cont">© 2023 Estuardo Sabán Derechos Reservados</p>
 		</div>
 	</footer>
 	<!-- Footer - end -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 	<script src="~/js/jquery-1.12.3.min.js"></script>
 	<script src="~/js/fancybox/fancybox.js"></script>

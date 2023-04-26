@@ -35,3 +35,11 @@ form {
   font-family: 'Times New Roman', Times, serif;
   font-weight: 500;
 }
+
+.btn-register {
+    margin-top: 5%;
+    background-color: #ff8f00;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+}

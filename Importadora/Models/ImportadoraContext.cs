@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using ImportadoraModels;
 
 namespace Importadora.Models;
 
@@ -25,21 +24,8 @@ public partial class ImportadoraContext : DbContext
     public virtual DbSet<Vehiculo> Vehiculos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json")
-                        .Build();
-
-            var connectionString = configuration.GetConnectionString("importadoraDB");
-
-            _ = optionsBuilder.UseMySQL(connectionString);
-
-        }
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySQL("server=127.0.0.1;userid=root;password=root;database=importadora;TreatTinyAsBoolean=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -109,7 +95,7 @@ public partial class ImportadoraContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("correo");
             entity.Property(e => e.Direccion)
-                .HasMaxLength(100)
+                .HasMaxLength(255)
                 .HasColumnName("direccion");
             entity.Property(e => e.Estado)
                 .HasMaxLength(50)
@@ -120,10 +106,10 @@ public partial class ImportadoraContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");
-            entity.Property(e => e.Salt)
-                .HasMaxLength(50)
-                .HasColumnName("salt");
             entity.Property(e => e.RolId).HasColumnName("rol_id");
+            entity.Property(e => e.Salt)
+                .HasMaxLength(255)
+                .HasColumnName("salt");
             entity.Property(e => e.Telefono)
                 .HasMaxLength(20)
                 .HasColumnName("telefono");
@@ -158,10 +144,4 @@ public partial class ImportadoraContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-    public DbSet<ImportadoraModels.Compra> Compra { get; set; } = default!;
-
-    public DbSet<ImportadoraModels.Usuario> Usuario { get; set; } = default!;
-
-    public DbSet<ImportadoraModels.Vehiculo> Vehiculo { get; set; } = default!;
 }

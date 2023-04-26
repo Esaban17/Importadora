@@ -1,4 +1,5 @@
-﻿using ImportadoraModels;
+﻿using Azure.Core;
+using ImportadoraModels;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -67,7 +68,7 @@ namespace Importadora.Services
 
         }
 
-        public static async System.Threading.Tasks.Task<ImportadoraModels.GeneralResult> Create(Usuario usuario)
+        public static async System.Threading.Tasks.Task<ImportadoraModels.GeneralResult> Create(ImportadoraModels.Usuario usuario, string accessToken)
         {
 
 
@@ -79,17 +80,44 @@ namespace Importadora.Services
 
             // Pass the handler to httpclient(from you are calling api)
             HttpClient httpClient = new HttpClient(clientHandler);
+            //httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             httpClient.Timeout = TimeSpan.FromSeconds(timeout);
 
             var jsonUser = JsonConvert.SerializeObject(usuario);
+            var content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(baseurl + "Usuario/Create", content);
 
-            var stringContent = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<ImportadoraModels.GeneralResult>(await response.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                throw new Exception(response.StatusCode.ToString());
 
-            var request = new HttpRequestMessage(HttpMethod.Post, baseurl + "Usuario/Create");
+            }
 
-            request.Content = stringContent;
+        }
 
-            var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
+        public static async System.Threading.Tasks.Task<ImportadoraModels.GeneralResult> Login(ImportadoraModels.Usuario usuario)
+        {
+
+
+            // var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(object_to_serialize);
+            // var content = new StringContent(json_, Encoding.UTF8, "application/json");
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+
+            // Pass the handler to httpclient(from you are calling api)
+            HttpClient httpClient = new HttpClient(clientHandler);
+            //httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            httpClient.Timeout = TimeSpan.FromSeconds(timeout);
+
+            var jsonUser = JsonConvert.SerializeObject(usuario);
+            var content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(baseurl + "Usuario/Authenticate", content);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {

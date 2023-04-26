@@ -50,6 +50,13 @@ namespace Importadora.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(IFormCollection formCollection)
         {
+
+            var rolId = 3;
+            if (Convert.ToInt32(formCollection["RolId"]) < 3)
+            {
+                rolId = Convert.ToInt32(formCollection["RolId"]);
+            }
+
             var newUsuario = new ImportadoraModels.Usuario { 
                 Nombre = formCollection["Nombre"],
                 Apellido = formCollection["Apellido"],
@@ -60,12 +67,20 @@ namespace Importadora.Controllers
                 Estado = formCollection["Estado"],
                 CodigoPostal = formCollection["CodigoPostal"],
                 Telefono = formCollection["Telefono"],
-                RolId = Convert.ToInt32(formCollection["RolId"])
+                RolId = rolId
             };
 
-            await Services.UsuarioService.Create(newUsuario);
-       
-            return View();
+            var response = await Services.UsuarioService.Create(newUsuario, "");
+
+            if (response.Result)
+            {
+                return View("Views/Home/Login.cshtml", response.Result);
+            }
+            else
+            {
+                return View("Views/Home/Register.cshtml", response.Result);
+            }
+      
         }
 
 

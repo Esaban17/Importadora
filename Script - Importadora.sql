@@ -22,16 +22,16 @@ CREATE TABLE roles (
 -- Tabla de usuarios
 CREATE TABLE usuarios (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nombre VARCHAR(50) NOT NULL,
-  apellido VARCHAR(50) NOT NULL,
+  nombre VARCHAR(50),
+  apellido VARCHAR(50),
   correo VARCHAR(50) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
-  salt VARCHAR(50) NOT NULL,
-  direccion VARCHAR(100) NOT NULL,
-  ciudad VARCHAR(50) NULL,
-  estado VARCHAR(50) NULL,
-  codigo_postal VARCHAR(10) NULL,
-  telefono VARCHAR(20) NULL,
+  salt VARCHAR(255) NOT NULL,
+  direccion VARCHAR(255),
+  ciudad VARCHAR(50),
+  estado VARCHAR(50),
+  codigo_postal VARCHAR(10),
+  telefono VARCHAR(20),
   rol_id INT NOT NULL,
   FOREIGN KEY (rol_id) REFERENCES roles(id)
 );

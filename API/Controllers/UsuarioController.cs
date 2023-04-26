@@ -92,7 +92,9 @@ namespace API.Controllers
             {
                 ImportadoraContext _importadoraContext = new ImportadoraContext();
 
-                if (ExisteCorreo(usuario.Correo))
+                var response = await ExisteCorreo(usuario.Correo);
+
+                if (response)
                 {
                     generalResult.Result = false;
                     generalResult.ErrorMessage = "ERROR ya existe un usuario con ese correo";
@@ -104,7 +106,7 @@ namespace API.Controllers
                     //GENERAMOS SU PASSWORD CON EL SALT
                     string encryptPassword = Encrypt(usuario.Password, Salt);
 
-                    Models.Usuario newClient = new Models.Usuario
+                    Models.Usuario newUsuario = new Models.Usuario
                     {
                         Nombre = usuario.Nombre,
                         Apellido = usuario.Apellido,
@@ -116,9 +118,9 @@ namespace API.Controllers
                         Estado = usuario.Estado,
                         CodigoPostal = usuario.CodigoPostal,
                         Telefono = usuario.Telefono,
-                        RolId = usuario.RolId,
+                        RolId = usuario.RolId
                     };
-                    _importadoraContext.Usuarios.Add(newClient);
+                    _importadoraContext.Usuarios.Add(newUsuario);
                     await _importadoraContext.SaveChangesAsync();
                     generalResult.Result = true;
                 }
@@ -274,13 +276,27 @@ namespace API.Controllers
             return StatusCode(StatusCodes.Status401Unauthorized, new { token = "" });
         }
 
-        private bool ExisteCorreo(string correo)
+        private async Task<bool> ExisteCorreo(string correo)
         {
             ImportadoraContext _importadoraContext = new ImportadoraContext();
-            var consulta = from datos in _importadoraContext.Usuarios
-                           where datos.Correo == correo
-                           select datos;
-            if (consulta.Count() > 0)
+            ImportadoraModels.Usuario foundUser = await _importadoraContext.Usuarios.Select(s =>
+            new ImportadoraModels.Usuario
+            {
+                Id = s.Id,
+                Nombre = s.Nombre,
+                Apellido = s.Apellido,
+                Correo = s.Correo,
+                Password = s.Password,
+                Direccion = s.Direccion,
+                Ciudad = s.Ciudad,
+                Estado = s.Estado,
+                CodigoPostal = s.CodigoPostal,
+                Telefono = s.Telefono,
+                RolId = s.RolId
+            }
+            ).FirstOrDefaultAsync(s => s.Correo == correo);
+
+            if (foundUser != null)
             {
                 //El email existe en la base de datos
                 return true;
