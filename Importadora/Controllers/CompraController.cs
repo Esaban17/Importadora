@@ -5,11 +5,6 @@ namespace Importadora.Controllers
 {
     public class CompraController : Controller
     {
-        // GET: CompraController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // GET: CompraController/Create
         [HttpGet]

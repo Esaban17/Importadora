@@ -5,7 +5,7 @@
 }
 
 <div class="cont maincont">
-    <p><a asp-controller="Compra" asp-action="Create">Agregar Vehiculos</a></p>
+    <p><a asp-controller="Vehiculo" asp-action="Create">Agregar Vehiculos</a></p>
     <h1><span>Vehiculos</span></h1>
     <!-- Catalog Items - start -->
     <div class="section-list">
@@ -19,40 +19,26 @@
                     <div class="sectls-ttl-wrap">
                         <p><a href="#">@Html.DisplayFor(modelItem => item.Marca)</a></p>
                         <h3><a href="product.html">@Html.DisplayFor(modelItem => item.Modelo)</a></h3>
+                        <p class="sectls-id">Año: @Html.DisplayFor(modelItem => item.Anio)</p>
+                    </div>
+                    <div class="sectls-qnt-wrap">
+                        <p>Quantity</p>
+                        <p class="sectls-qnt">@Html.DisplayFor(modelItem => item.Cantidad)</p>
                     </div>
                     <div class="sectls-price-wrap">
                         <p>Price</p>
                         <p class="sectls-price">$@Html.DisplayFor(modelItem => item.Precio)</p>
                     </div>
-                    <div class="sectls-qnt-wrap">
-                        <p>Quantity</p>
-                        <p class="qnt-wrap sectls-qnt">
-                            <a href="#" class="qnt-minus sectls-minus">-</a>
-                            <input id="quantity" type="text" value="@Html.DisplayFor(modelItem => item.Cantidad)">
-                            <a href="#" class="qnt-plus sectls-plus">+</a>
-                        </p>
-                    </div>
-                    <div class="sectls-total-wrap">
-                        <p>Total</p>
-                        <p class="sectls-total">$0.00</p>
-                    </div>
                 </div>
                 <div class="sectls-info">
-                    <div class="sectls-rating-wrap">
-                        <p class="sectls-rating">
-                            <i class="fa fa-star-o" title="5"></i><i class="fa fa-star-o" title="4"></i><i class="fa fa-star-o" title="3"></i><i class="fa fa-star-o" title="2"></i><i class="fa fa-star-o" title="1"></i>
-                        </p>
-                        <p><span class="sectls-rating-count">89</span> reviews</p>
-                    </div>
-                    <p class="sectls-id">Año: @Html.DisplayFor(modelItem => item.Anio)</p>
                     <p class="sectls-add">
-                        <a href="#">Add to cart</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </p>
-                    <p class="sectls-favorites">
-                        <a href="#"></a>
+                    <p class="sectls-add">
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                     </p>
-                    <p class="sectls-compare">
-                        <a href="#"></a>
+                    <p class="sectls-add">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     </p>
                 </div>
             </div>

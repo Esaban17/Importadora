@@ -5,11 +5,6 @@ namespace Importadora.Controllers
 {
     public class VehiculoController : Controller
     {
-        // GET: VehiculoController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // GET: VehiculoController/Create
         [HttpGet]

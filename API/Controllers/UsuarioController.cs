@@ -219,7 +219,7 @@ namespace API.Controllers
         // LOGIN USUARIOS api/<UsuarioController>/5
         [Route("Authenticate")]
         [HttpPost]
-        public async Task<IActionResult> Validate(ImportadoraModels.Usuario usuario)
+        public async Task<ImportadoraModels.GeneralResult> Authenticate(ImportadoraModels.Usuario usuario)
         {
             ImportadoraModels.GeneralResult generalResult = new ImportadoraModels.GeneralResult()
             {
@@ -260,12 +260,17 @@ namespace API.Controllers
 
                     string token = tokenHandler.WriteToken(tokenConfig);
 
-                    return StatusCode(StatusCodes.Status200OK, new { token });
+                    generalResult.Result = true;
+                    generalResult.Token = token;
+
+                    return generalResult;
                 }
                 else
                 {
+                    generalResult.Result = false;
+                    generalResult.ErrorMessage = "Usuario / Contraseña Incorrectos";
                     //Contraseña incorrecta
-                    return StatusCode(StatusCodes.Status401Unauthorized, new { token = "" });
+                    return generalResult;
                 }
             }
             catch (Exception ex)
@@ -273,7 +278,7 @@ namespace API.Controllers
                 generalResult.Result = false;
                 generalResult.ErrorMessage = ex.Message;
             }
-            return StatusCode(StatusCodes.Status401Unauthorized, new { token = "" });
+            return generalResult;
         }
 
         private async Task<bool> ExisteCorreo(string correo)

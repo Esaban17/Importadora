@@ -9,6 +9,7 @@ namespace ImportadoraModels
     public class GeneralResult
     {
         public bool Result { get; set; }
+        public string Token { get; set; }
         public string ErrorMessage { get; set; }
     }
 }

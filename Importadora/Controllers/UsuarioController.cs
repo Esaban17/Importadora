@@ -7,11 +7,6 @@ namespace Importadora.Controllers
 {
     public class UsuarioController : Controller
     {
-        // GET: UsuarioController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // GET: UsuarioController/Create
         [HttpGet]
@@ -81,6 +76,30 @@ namespace Importadora.Controllers
                 return View("Views/Home/Register.cshtml", response.Result);
             }
       
+        }
+
+        // POST: UsuarioController/Login
+        [HttpPost]
+        public async Task<IActionResult> Login(IFormCollection formCollection)
+        {
+
+            var loginUser = new ImportadoraModels.Usuario
+            {
+                Correo = formCollection["Correo"],
+                Password = formCollection["Password"]
+            };
+
+            var response = await Services.UsuarioService.Login(loginUser);
+
+            if (response.Token != "")
+            {
+                return View("Views/Home/Index.cshtml");
+            }
+            else
+            {
+                return View("Views/Home/Login.cshtml");
+            }
+
         }
 
 
